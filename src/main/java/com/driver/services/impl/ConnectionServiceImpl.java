@@ -107,7 +107,7 @@ public class ConnectionServiceImpl implements ConnectionService {
             }
             else{
                 String reciverCode=reciverUser.getMaskedIp().substring(0,3);
-                if(senderUser.getCountry().getCode().equals(reciverCode))return  senderUser;
+                if(senderUser.getOriginalCountry().getCode().equals(reciverCode))return  senderUser;
 
                 try{
                     String name="";
@@ -146,7 +146,7 @@ public class ConnectionServiceImpl implements ConnectionService {
                 }
             }
             else{
-                if(senderUser.getCountry().getCode().equals(reciverCode))return  senderUser;
+                if(senderUser.getOriginalCountry().getCode().equals(reciverCode))return  senderUser;
 
                 try{
                     String name="";
