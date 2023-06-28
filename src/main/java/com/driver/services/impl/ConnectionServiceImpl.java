@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class ConnectionServiceImpl implements ConnectionService {
     @Override
     public User connect(int userId, String countryName) throws Exception{
       User user=userRepository2.findById(userId).get();
-      if(user.isConnected())throw  new Exception("Already connected");
+      if(user.getConnected())throw  new Exception("Already connected");
       if(user.getOriginalCountry().getCountryName().name().equals(countryName)) return  user;
       List<Country> list=new ArrayList<>();
       for(ServiceProvider serviceProvider: user.getServiceProviderList()){
@@ -68,7 +67,7 @@ public class ConnectionServiceImpl implements ConnectionService {
     @Override
     public User disconnect(int userId) throws Exception {
         User user=userRepository2.findById(userId).get();
-        if(user.isConnected()==false)throw  new Exception("Already disconnected");
+        if(user.getConnected()==false)throw  new Exception("Already disconnected");
         user.setConnected(false);
         user.setMaskedIp(null);
         for(Connection connection:user.getConnectionList()){
@@ -84,8 +83,8 @@ public class ConnectionServiceImpl implements ConnectionService {
     public User communicate(int senderId, int receiverId) throws Exception {
         User senderUser=userRepository2.findById(senderId).get();
         User reciverUser=userRepository2.findById(receiverId).get();
-        if(reciverUser.isConnected()){
-            if(senderUser.isConnected()){
+        if(reciverUser.getConnected()){
+            if(senderUser.getConnected()){
                 String senderCode= senderUser.getMaskedIp().substring(0,3);
                 String reciverCode=reciverUser.getMaskedIp().substring(0,3);
                 if(senderCode.equals(reciverCode))return  senderUser;
@@ -126,7 +125,7 @@ public class ConnectionServiceImpl implements ConnectionService {
         }
         else{
             String reciverCode=reciverUser.getOriginalIp().substring(0,3);
-            if(senderUser.isConnected()){
+            if(senderUser.getConnected()){
                 String senderCode= senderUser.getMaskedIp().substring(0,3);
                 if(senderCode.equals(reciverCode))return  senderUser;
 
