@@ -19,7 +19,7 @@ public class User {
     @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
     List<Connection>connectionList=new ArrayList<>();
     @OneToMany(mappedBy = "country" , cascade = CascadeType.ALL)
-    Country country;
+    Country originalCountry;
 
     public User() {
     }
@@ -33,7 +33,7 @@ public class User {
         this.connected = connected;
         this.serviceProviderList = serviceProviderList;
         this.connectionList = connectionList;
-        this.country = country;
+        this.originalCountry = country;
     }
 
     public int getId() {
@@ -100,11 +100,11 @@ public class User {
         this.connectionList = connectionList;
     }
 
-    public Country getCountry() {
-        return country;
+    public Country getOriginalCountry() {
+        return originalCountry;
     }
 
-    public void setCountry(Country country) {
-        this.country = country;
+    public void setOriginalCountry(Country country) {
+        this.originalCountry = country;
     }
 }
