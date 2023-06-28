@@ -26,7 +26,7 @@ public class ConnectionServiceImpl implements ConnectionService {
     public User connect(int userId, String countryName) throws Exception{
       User user=userRepository2.findById(userId).get();
       if(user.isConnected())throw  new Exception("Already connected");
-      if(user.getCountry().getCountryName().name().equals(countryName)) return  user;
+      if(user.getOriginalCountry().getCountryName().name().equals(countryName)) return  user;
       List<Country> list=new ArrayList<>();
       for(ServiceProvider serviceProvider: user.getServiceProviderList()){
           for(Country country:serviceProvider.getCountryList()){
