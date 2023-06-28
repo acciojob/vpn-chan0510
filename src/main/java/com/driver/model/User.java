@@ -13,7 +13,7 @@ public class User {
     private String password;
     private String originalIp;
     private String maskedIp;
-    private boolean connected=false;
+    private boolean connected;
     @ManyToMany(mappedBy = "serviceProvider" , cascade = CascadeType.ALL)
     List<ServiceProvider> serviceProviderList=new ArrayList<>();
     @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
